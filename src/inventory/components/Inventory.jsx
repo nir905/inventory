@@ -1,6 +1,7 @@
 import React, { useCallback, useMemo, useState } from "react";
 import styled from "styled-components";
 import AddItemModal from "../../modal/components/ItemModal";
+import useStoredState from "../hooks/useStoredState";
 import Item from "./Item";
 
 const Wrapper = styled.main`
@@ -8,6 +9,7 @@ const Wrapper = styled.main`
   border-radius: 9% 0 0 0;
   padding: 16px 32px;
   height: 100%;
+  overflow: scroll;
 `;
 
 const Search = styled.input`
@@ -16,6 +18,8 @@ const Search = styled.input`
   border-radius: 8px;
   width: 100%;
   margin-bottom: 32px;
+  position: sticky;
+  top: -17px;
 `;
 
 const List = styled.div`
@@ -38,19 +42,23 @@ const AddButton = styled.button`
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 `;
 
+const Empty = styled.div`
+  text-align: center;
+  font-size: 32px;
+  margin-top: 64px;
+  color: #9a9999;
+`;
+
 const Inventory = () => {
-  const [list, setList] = useState([
-    { id: Math.random(), name: "Coca cola", amount: 4, type: "unit" },
-    { id: Math.random(), name: "Coca cola2", amount: 5, type: "gram" },
-  ]);
+  const [list, setList] = useStoredState("inventoryV1", []);
   const [search, setSearch] = useState("");
   const [selectedItemModal, setSelectedItemModal] = useState();
 
   const filteredList = useMemo(
     () =>
-      list.filter(({ name }) =>
-        name.toLowerCase().includes(search.toLowerCase())
-      ),
+      list
+        .filter(({ name }) => name.toLowerCase().includes(search.toLowerCase()))
+        .sort((a, b) => a.name.localeCompare(b.name)),
     [list, search]
   );
 
@@ -74,20 +82,34 @@ const Inventory = () => {
     }
   }, []);
 
+  const handleDeleteItem = useCallback(() => {
+    setList((prevList) =>
+      prevList.filter((item) => item.id !== selectedItemModal.id)
+    );
+  }, [selectedItemModal]);
+
   return (
     <Wrapper>
       <Search value={search} onChange={(e) => setSearch(e.target.value)} />
 
-      <List>
-        {filteredList.map((item) => (
-          <Item
-            {...item}
-            key={item.id}
-            onChangeAmount={handleChangeAmount}
-            onEdit={() => setSelectedItemModal(item)}
-          />
-        ))}
-      </List>
+      {list.length > 0 ? (
+        <List>
+          {filteredList.map((item) => (
+            <Item
+              {...item}
+              key={item.id}
+              onChangeAmount={handleChangeAmount}
+              onEdit={() => setSelectedItemModal(item)}
+            />
+          ))}
+        </List>
+      ) : (
+        <Empty>No items yet</Empty>
+      )}
+
+      {list.length > 0 && filteredList.length === 0 && (
+        <Empty>No items found</Empty>
+      )}
 
       <AddButton onClick={() => setSelectedItemModal({})}>+</AddButton>
 
@@ -96,6 +118,7 @@ const Inventory = () => {
           item={selectedItemModal}
           onClose={() => setSelectedItemModal()}
           onSave={handleSaveItem}
+          onDelete={handleDeleteItem}
         />
       )}
     </Wrapper>

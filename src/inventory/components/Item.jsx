@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import styled from "styled-components";
 import useLongPress from "../../shared/hooks/useLongPress";
 
@@ -9,6 +9,8 @@ const Wrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr auto 50px auto;
   align-items: center;
+
+  ${({ $empty }) => $empty && "color: #9a9999;"}
 `;
 
 const Name = styled.div`
@@ -16,7 +18,7 @@ const Name = styled.div`
   flex-direction: column;
   > span:last-child {
     font-size: 11px;
-    color: #bcbcbc;
+    color: #9a9999;
   }
 `;
 
@@ -50,25 +52,35 @@ const Item = ({ id, name, amount, type, comment, onChangeAmount, onEdit }) => {
     shouldPreventDefault: false,
   });
 
+  const handleChangeAmount = useCallback(
+    (increase = true) => {
+      const increaseBy =
+        type === "gram" ? 100 : Number.isInteger(amount) ? 1 : 0.1;
+
+      let newAmount = increase ? amount + increaseBy : amount - increaseBy;
+      if (newAmount < 0) {
+        newAmount = 0;
+      }
+      onChangeAmount(id, newAmount);
+    },
+    [type, amount, id]
+  );
+
   return (
-    <Wrapper {...longPressEvent}>
+    <Wrapper {...longPressEvent} $empty={amount === 0}>
       <Name>
         <span>{name}</span>
         <span>{comment}</span>
       </Name>
 
-      <AmountButton onClick={() => onChangeAmount(id, amount - 1)}>
-        -
-      </AmountButton>
+      <AmountButton onClick={() => handleChangeAmount(false)}>-</AmountButton>
 
       <Amount>
         <span>{amount}</span>
         <span>{TYPE_LABELS[type]}</span>
       </Amount>
 
-      <AmountButton onClick={() => onChangeAmount(id, amount + 1)}>
-        +
-      </AmountButton>
+      <AmountButton onClick={() => handleChangeAmount(true)}>+</AmountButton>
     </Wrapper>
   );
 };

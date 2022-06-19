@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Modal from "../../shared/components/Modal";
+import { ReactComponent as BaseDeleteIcon } from "../../assets/delete.svg";
 
 const Input = styled.input`
   border: 1px solid #bcbcbc;
@@ -10,8 +11,15 @@ const Input = styled.input`
   margin-bottom: 32px;
 `;
 
-const ItemModal = ({ item = {}, onClose, onSave }) => {
+const DeleteIcon = styled(BaseDeleteIcon)`
+  width: 32px;
+  height: 32px;
+  color: #f11a1a;
+`;
+
+const ItemModal = ({ item = {}, onClose, onSave, onDelete }) => {
   const [state, setState] = useState({ type: "unit", ...item });
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   return (
     <Modal
@@ -65,6 +73,22 @@ const ItemModal = ({ item = {}, onClose, onSave }) => {
           setState((prev) => ({ ...prev, comment: e.target.value }))
         }
       />
+
+      {item.id && <DeleteIcon onClick={() => setShowDeleteModal(true)} />}
+      {showDeleteModal && (
+        <Modal
+          title="Delete item?"
+          onClose={() => setShowDeleteModal(false)}
+          primaryText="Yes"
+          onPrimaryClick={() => {
+            onDelete();
+            setShowDeleteModal(false);
+            onClose();
+          }}
+          secondaryText="No"
+          onSecondaryClick={() => setShowDeleteModal(false)}
+        />
+      )}
     </Modal>
   );
 };
