@@ -21,6 +21,10 @@ const GlobalStyle = createGlobalStyle`
             flex-direction: column;
         }
     }
+
+    textarea {
+        font-family: Arial;
+    }
 `;
 
 export default GlobalStyle;
