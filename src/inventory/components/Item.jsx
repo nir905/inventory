@@ -28,14 +28,14 @@ const Item = ({ id, name, amount, onChangeAmount }) => {
     <Wrapper>
       <div>{name}</div>
 
-      <AmountButton onClick={() => onChangeAmount(id, amount + 1)}>
-        +
+      <AmountButton onClick={() => onChangeAmount(id, amount - 1)}>
+        -
       </AmountButton>
 
       <Amount>{amount}</Amount>
 
-      <AmountButton onClick={() => onChangeAmount(id, amount - 1)}>
-        -
+      <AmountButton onClick={() => onChangeAmount(id, amount + 1)}>
+        +
       </AmountButton>
     </Wrapper>
   );
