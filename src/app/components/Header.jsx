@@ -8,6 +8,7 @@ const Wrapper = styled.h1`
   color: #fff;
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
 `;
 
 const Select = styled.select`
