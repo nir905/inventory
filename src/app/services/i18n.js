@@ -1,0 +1,64 @@
+import i18n from "i18next";
+import { initReactI18next } from "react-i18next";
+
+// the translations
+// (tip move them in a JSON file and import them,
+// or even better, manage them separated from your code: https://react.i18next.com/guides/multiple-translation-files)
+const resources = {
+  en: {
+    translation: {
+      app_name: "Inventory App",
+      english: "English",
+      hebrew: "Hebrew",
+      search_items: "Search items...",
+      no_items: "No items yet",
+      no_items_found: "No items found",
+      update_item: "Update item",
+      add_item: "Add item",
+      save: "Save",
+      cancel: "Cancel",
+      name: "Name",
+      amount: "Amount",
+      unit: "Unit",
+      box: "Box",
+      gram: "Gram",
+      comment: "Comment",
+      delete_item: "Delete item?",
+      yes: "Yes",
+      no: "No",
+    },
+  },
+  he: {
+    translation: {
+      app_name: "אפליקצית מלאי",
+      english: "אנגלית",
+      hebrew: "עברית",
+      search_items: "חיפוש מוצרים...",
+      no_items: "אין עדיין מוצרים",
+      no_items_found: "מוצרים לא נמצאו",
+      update_item: "עידכון מוצר",
+      add_item: "הוספת מוצר",
+      save: "שמירה",
+      cancel: "ביטול",
+      name: "שם",
+      amount: "כמות",
+      unit: "יחידה",
+      box: "קופסא",
+      gram: "גרם",
+      comment: "הערה",
+      delete_item: "למחוק מוצר?",
+      yes: "כן",
+      no: "לא",
+    },
+  },
+};
+
+i18n.use(initReactI18next).init({
+  resources,
+  lng: "en",
+  interpolation: {
+    escapeValue: false, // react already safes from xss
+  },
+});
+
+export default i18n;

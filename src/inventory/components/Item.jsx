@@ -1,4 +1,5 @@
 import React, { useCallback } from "react";
+import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 import useLongPress from "../../shared/hooks/useLongPress";
 
@@ -41,13 +42,8 @@ const Amount = styled.div`
   }
 `;
 
-const TYPE_LABELS = {
-  unit: "",
-  box: "Boxes",
-  gram: "gram",
-};
-
 const Item = ({ id, name, amount, type, comment, onChangeAmount, onEdit }) => {
+  const { t } = useTranslation();
   const longPressEvent = useLongPress(onEdit, null, {
     shouldPreventDefault: false,
   });
@@ -77,7 +73,7 @@ const Item = ({ id, name, amount, type, comment, onChangeAmount, onEdit }) => {
 
       <Amount>
         <span>{amount}</span>
-        <span>{TYPE_LABELS[type]}</span>
+        <span>{t(type)}</span>
       </Amount>
 
       <AmountButton onClick={() => handleChangeAmount(true)}>+</AmountButton>

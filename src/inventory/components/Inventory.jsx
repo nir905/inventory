@@ -1,4 +1,5 @@
 import React, { useCallback, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 import AddItemModal from "../../modal/components/ItemModal";
 import useStoredState from "../hooks/useStoredState";
@@ -50,6 +51,7 @@ const Empty = styled.div`
 `;
 
 const Inventory = () => {
+  const { t } = useTranslation();
   const [list, setList] = useStoredState("inventoryV1", []);
   const [search, setSearch] = useState("");
   const [selectedItemModal, setSelectedItemModal] = useState();
@@ -90,7 +92,11 @@ const Inventory = () => {
 
   return (
     <Wrapper>
-      <Search value={search} onChange={(e) => setSearch(e.target.value)} />
+      <Search
+        placeholder={t("search_items")}
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+      />
 
       {list.length > 0 ? (
         <List>
@@ -104,11 +110,11 @@ const Inventory = () => {
           ))}
         </List>
       ) : (
-        <Empty>No items yet</Empty>
+        <Empty>{t("no_items")}</Empty>
       )}
 
       {list.length > 0 && filteredList.length === 0 && (
-        <Empty>No items found</Empty>
+        <Empty>{t("no_items_found")}</Empty>
       )}
 
       <AddButton onClick={() => setSelectedItemModal({})}>+</AddButton>

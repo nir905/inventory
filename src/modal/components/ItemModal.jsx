@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Modal from "../../shared/components/Modal";
 import { ReactComponent as BaseDeleteIcon } from "../../assets/delete.svg";
+import { useTranslation } from "react-i18next";
 
 const Input = styled.input`
   border: 1px solid #bcbcbc;
@@ -18,14 +19,15 @@ const DeleteIcon = styled(BaseDeleteIcon)`
 `;
 
 const ItemModal = ({ item = {}, onClose, onSave, onDelete }) => {
+  const { t } = useTranslation();
   const [state, setState] = useState({ type: "unit", ...item });
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   return (
     <Modal
       onClose={onClose}
-      title={item.id ? "Update item" : "Add item"}
-      primaryText="Save"
+      title={item.id ? t("update_item") : t("add_item")}
+      primaryText={t("save")}
       onPrimaryClick={() => {
         if (!state.name || state.amount === undefined) {
           return;
@@ -33,11 +35,11 @@ const ItemModal = ({ item = {}, onClose, onSave, onDelete }) => {
         onSave(state);
         onClose();
       }}
-      secondaryText="Cancel"
+      secondaryText={t("cancel")}
       onSecondaryClick={onClose}
     >
       <Input
-        placeholder="Name"
+        placeholder={t("name")}
         value={state.name || ""}
         onChange={(e) =>
           setState((prev) => ({ ...prev, name: e.target.value }))
@@ -45,7 +47,7 @@ const ItemModal = ({ item = {}, onClose, onSave, onDelete }) => {
       />
 
       <Input
-        placeholder="Amount"
+        placeholder={t("amount")}
         type="number"
         value={state.amount || ""}
         onChange={(e) =>
@@ -60,14 +62,14 @@ const ItemModal = ({ item = {}, onClose, onSave, onDelete }) => {
           setState((prev) => ({ ...prev, type: e.target.value }))
         }
       >
-        <option value="unit">Unit</option>
-        <option value="box">Box</option>
-        <option value="gram">Gram</option>
+        <option value="unit">{t("unit")}</option>
+        <option value="box">{t("box")}</option>
+        <option value="gram">{t("gram")}</option>
       </Input>
 
       <Input
         as="textarea"
-        placeholder="Comment"
+        placeholder={t("comment")}
         value={state.comment || ""}
         onChange={(e) =>
           setState((prev) => ({ ...prev, comment: e.target.value }))
@@ -77,15 +79,15 @@ const ItemModal = ({ item = {}, onClose, onSave, onDelete }) => {
       {item.id && <DeleteIcon onClick={() => setShowDeleteModal(true)} />}
       {showDeleteModal && (
         <Modal
-          title="Delete item?"
+          title={t("delete_item")}
           onClose={() => setShowDeleteModal(false)}
-          primaryText="Yes"
+          primaryText={t("yes")}
           onPrimaryClick={() => {
             onDelete();
             setShowDeleteModal(false);
             onClose();
           }}
-          secondaryText="No"
+          secondaryText={t("no")}
           onSecondaryClick={() => setShowDeleteModal(false)}
         />
       )}

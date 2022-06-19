@@ -14,7 +14,8 @@ const GlobalStyle = createGlobalStyle`
         font-family: Arial;
         height: 100vh;
         display: flex;
-
+        direction:ltr;
+        
         #root{
             flex: 1;
             display: flex;
