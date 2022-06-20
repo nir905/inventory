@@ -104,6 +104,16 @@ const Inventory = () => {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
+
+        <a
+          href="whatsapp://send?text= Please Visit http://ad-test.easygov.co.in/PanAdvertisement"
+          rel="nofollow noopener"
+          target="_blank"
+          className="share-icon"
+        >
+          <img src="/img/share-icon.png" style={{ height: "36px" }} />
+          Share via Whatsapp
+        </a>
       </SearchWrapper>
 
       {list.length > 0 ? (
