@@ -44,7 +44,7 @@ const Amount = styled.div`
 
 const Item = ({ id, name, amount, type, comment, onChangeAmount, onEdit }) => {
   const { t } = useTranslation();
-  const longPressEvent = useLongPress(onEdit);
+  const longPressEvent = useLongPress(onEdit, { cancelOnMovement: true });
 
   const handleChangeAmount = useCallback(
     (increase = true) => {
