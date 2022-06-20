@@ -61,7 +61,7 @@ const Item = ({ id, name, amount, type, comment, onChangeAmount, onEdit }) => {
   );
 
   return (
-    <Wrapper {...longPressEvent()} $empty={amount === 0}>
+    <Wrapper {...longPressEvent()} $empty={amount?.toString() === "0"}>
       <Name>
         <span>{name}</span>
         <span>{comment}</span>

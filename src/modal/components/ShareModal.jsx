@@ -25,8 +25,10 @@ const ShareModal = ({ list: baseList, onClose }) => {
       return baseList;
     }
 
-    return baseList.filter(({ amount }) => amount === 0);
+    return baseList.filter(({ amount }) => amount?.toString() === "0");
   }, [listType, baseList]);
+
+  const title = t(listType === "full" ? "full_list" : "missing_items");
 
   return (
     <Modal onClose={onClose} title={t("share")}>
@@ -36,23 +38,35 @@ const ShareModal = ({ list: baseList, onClose }) => {
           value={listType === "full"}
           onChange={() => setListType("full")}
         />
+
         <RadioButton
           label={t("missing_items")}
-          value={listType === "finished"}
-          onChange={() => setListType("finished")}
+          value={listType === "missing"}
+          onChange={() => setListType("missing")}
         />
 
         <Button
           as="a"
-          href={`whatsapp://send?text=${list
+          href={`whatsapp://send?text=${title}:%0a${list
             .map(({ name }) => name)
             .join("%0a")}`}
           rel="nofollow noopener"
           target="_blank"
+          onClick={onClose}
         >
           {t("share_whatsapp")}
         </Button>
-        <Button>{t("copy")}</Button>
+
+        <Button
+          onClick={() => {
+            navigator.clipboard.writeText(
+              `${title}:\n${list.map(({ name }) => name).join("\n")}`
+            );
+            onClose();
+          }}
+        >
+          {t("copy")}
+        </Button>
       </Content>
     </Modal>
   );
