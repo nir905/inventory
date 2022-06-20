@@ -19,6 +19,7 @@ const SearchWrapper = styled.div`
   background: #fff;
   margin: -17px -17px 17px;
   padding: 17px 17px 0;
+  border-radius: 25px 0 0 0;
 `;
 
 const Search = styled.input`
