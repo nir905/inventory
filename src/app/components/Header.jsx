@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useTranslation } from "react-i18next";
 
 const Wrapper = styled.h1`
-  padding: 32px;
+  padding: 32px 16px;
   margin: 0;
   color: #fff;
   display: flex;

@@ -8,7 +8,7 @@ import Item from "./Item";
 const Wrapper = styled.main`
   background: #ffffff;
   border-radius: 25px 0 0 0;
-  padding: 16px 32px;
+  padding: 16px;
   height: 100%;
   overflow: scroll;
 `;
@@ -26,7 +26,7 @@ const Search = styled.input`
 const List = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 18px;
 `;
 
 const AddButton = styled.button`
