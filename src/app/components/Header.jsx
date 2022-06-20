@@ -24,6 +24,7 @@ const Header = ({ lang, setLang }) => {
   useEffect(() => {
     i18n.changeLanguage(lang);
   }, [lang]);
+
   return (
     <Wrapper>
       {t("app_name")}

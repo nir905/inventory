@@ -53,9 +53,17 @@ const resources = {
   },
 };
 
+const getDefaultLang = () => {
+  try {
+    return JSON.parse(localStorage.getItem("lang"));
+  } catch (err) {
+    return "en";
+  }
+};
+
 i18n.use(initReactI18next).init({
   resources,
-  lng: "en",
+  lng: getDefaultLang(),
   interpolation: {
     escapeValue: false, // react already safes from xss
   },
