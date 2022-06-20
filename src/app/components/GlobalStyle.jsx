@@ -15,6 +15,8 @@ const GlobalStyle = createGlobalStyle`
         height: 100vh;
         display: flex;
         direction:ltr;
+        max-width: 800px;
+        margin: 0 auto;
         
         #root{
             flex: 1;
