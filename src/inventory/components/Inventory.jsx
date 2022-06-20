@@ -3,7 +3,9 @@ import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 import AddItemModal from "../../modal/components/ItemModal";
 import useStoredState from "../hooks/useStoredState";
+import { ReactComponent as BaseShareIcon } from "../../assets/share.svg";
 import Item from "./Item";
+import ShareModal from "../../modal/components/ShareModal";
 
 const Wrapper = styled.main`
   background: #ffffff;
@@ -14,6 +16,8 @@ const Wrapper = styled.main`
 `;
 
 const SearchWrapper = styled.div`
+  display: flex;
+  align-items: center;
   position: sticky;
   top: -17px;
   background: #fff;
@@ -27,6 +31,12 @@ const Search = styled.input`
   padding: 14px;
   border-radius: 8px;
   width: 100%;
+`;
+
+const ShareIcon = styled(BaseShareIcon)`
+  width: 24px;
+  height: 24px;
+  margin-left: 10px;
 `;
 
 const List = styled.div`
@@ -61,6 +71,7 @@ const Inventory = () => {
   const [list, setList] = useStoredState("inventoryV1", []);
   const [search, setSearch] = useState("");
   const [selectedItemModal, setSelectedItemModal] = useState();
+  const [shareModal, setShareModal] = useState();
 
   const filteredList = useMemo(
     () =>
@@ -105,7 +116,8 @@ const Inventory = () => {
           onChange={(e) => setSearch(e.target.value)}
         />
 
-        <a
+        <ShareIcon onClick={() => setShareModal(true)} />
+        {/* <a
           href="whatsapp://send?text= Please Visit http://ad-test.easygov.co.in/PanAdvertisement"
           rel="nofollow noopener"
           target="_blank"
@@ -113,7 +125,7 @@ const Inventory = () => {
         >
           <img src="/img/share-icon.png" style={{ height: "36px" }} />
           Share via Whatsapp
-        </a>
+        </a> */}
       </SearchWrapper>
 
       {list.length > 0 ? (
@@ -144,6 +156,10 @@ const Inventory = () => {
           onSave={handleSaveItem}
           onDelete={handleDeleteItem}
         />
+      )}
+
+      {shareModal && (
+        <ShareModal list={list} onClose={() => setShareModal(false)} />
       )}
     </Wrapper>
   );
