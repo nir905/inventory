@@ -13,14 +13,19 @@ const Wrapper = styled.main`
   overflow: scroll;
 `;
 
+const SearchWrapper = styled.div`
+  position: sticky;
+  top: -17px;
+  background: #fff;
+  margin: -17px -17px 17px;
+  padding: 17px 17px 0;
+`;
+
 const Search = styled.input`
   border: 1px solid #bcbcbc;
   padding: 14px;
   border-radius: 8px;
   width: 100%;
-  margin-bottom: 32px;
-  position: sticky;
-  top: -17px;
 `;
 
 const List = styled.div`
@@ -92,11 +97,13 @@ const Inventory = () => {
 
   return (
     <Wrapper>
-      <Search
-        placeholder={t("search_items")}
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-      />
+      <SearchWrapper>
+        <Search
+          placeholder={t("search_items")}
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+      </SearchWrapper>
 
       {list.length > 0 ? (
         <List>
