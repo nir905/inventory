@@ -32,12 +32,12 @@ const ShareModal = ({ list: baseList, onClose }) => {
     <Modal onClose={onClose} title={t("share")}>
       <Content>
         <RadioButton
-          label="Full list"
+          label={t("full_list")}
           value={listType === "full"}
           onChange={() => setListType("full")}
         />
         <RadioButton
-          label="Missing items"
+          label={t("missing_items")}
           value={listType === "finished"}
           onChange={() => setListType("finished")}
         />
@@ -46,13 +46,13 @@ const ShareModal = ({ list: baseList, onClose }) => {
           as="a"
           href={`whatsapp://send?text=${list
             .map(({ name }) => name)
-            .join("\n")}`}
+            .join("%0a")}`}
           rel="nofollow noopener"
           target="_blank"
         >
-          Share on Whatsapp
+          {t("share_whatsapp")}
         </Button>
-        <Button>Copy</Button>
+        <Button>{t("copy")}</Button>
       </Content>
     </Modal>
   );

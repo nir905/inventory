@@ -26,6 +26,10 @@ const resources = {
       delete_item: "Delete item?",
       yes: "Yes",
       no: "No",
+      full_list: "Full list",
+      missing_items: "Missing items",
+      share_whatsapp: "Share on Whatsapp",
+      copy: "Copy",
     },
   },
   he: {
@@ -49,6 +53,10 @@ const resources = {
       delete_item: "למחוק מוצר?",
       yes: "כן",
       no: "לא",
+      full_list: "כל הרשימה",
+      missing_items: "מוצרים חסרים",
+      share_whatsapp: "שתף בווטאספ",
+      copy: "העתק",
     },
   },
 };
