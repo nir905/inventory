@@ -9,11 +9,12 @@ const Wrapper = styled.h1`
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  font-size: 24px;
 `;
 
 const Select = styled.select`
   border: 1px solid #bcbcbc;
-  padding: 14px;
+  padding: 4px 8px;
   border-radius: 8px;
 `;
 

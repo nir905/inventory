@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
-import useLongPress from "../../shared/hooks/useLongPress";
+import { useLongPress } from "use-long-press";
 
 const Wrapper = styled.div`
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
@@ -44,9 +44,7 @@ const Amount = styled.div`
 
 const Item = ({ id, name, amount, type, comment, onChangeAmount, onEdit }) => {
   const { t } = useTranslation();
-  const longPressEvent = useLongPress(onEdit, null, {
-    shouldPreventDefault: false,
-  });
+  const longPressEvent = useLongPress(onEdit);
 
   const handleChangeAmount = useCallback(
     (increase = true) => {
@@ -63,7 +61,7 @@ const Item = ({ id, name, amount, type, comment, onChangeAmount, onEdit }) => {
   );
 
   return (
-    <Wrapper {...longPressEvent} $empty={amount === 0}>
+    <Wrapper {...longPressEvent()} $empty={amount === 0}>
       <Name>
         <span>{name}</span>
         <span>{comment}</span>

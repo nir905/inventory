@@ -7,7 +7,7 @@ import Item from "./Item";
 
 const Wrapper = styled.main`
   background: #ffffff;
-  border-radius: 9% 0 0 0;
+  border-radius: 25px 0 0 0;
   padding: 16px 32px;
   height: 100%;
   overflow: scroll;

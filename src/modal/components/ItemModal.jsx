@@ -44,6 +44,7 @@ const ItemModal = ({ item = {}, onClose, onSave, onDelete }) => {
         onChange={(e) =>
           setState((prev) => ({ ...prev, name: e.target.value }))
         }
+        tabIndex={1}
       />
 
       <Input
@@ -53,6 +54,7 @@ const ItemModal = ({ item = {}, onClose, onSave, onDelete }) => {
         onChange={(e) =>
           setState((prev) => ({ ...prev, amount: e.target.value }))
         }
+        tabIndex={2}
       />
 
       <Input
@@ -61,6 +63,7 @@ const ItemModal = ({ item = {}, onClose, onSave, onDelete }) => {
         onChange={(e) =>
           setState((prev) => ({ ...prev, type: e.target.value }))
         }
+        tabIndex={3}
       >
         <option value="unit">{t("unit")}</option>
         <option value="box">{t("box")}</option>
@@ -74,6 +77,7 @@ const ItemModal = ({ item = {}, onClose, onSave, onDelete }) => {
         onChange={(e) =>
           setState((prev) => ({ ...prev, comment: e.target.value }))
         }
+        tabIndex={4}
       />
 
       {item.id && <DeleteIcon onClick={() => setShowDeleteModal(true)} />}

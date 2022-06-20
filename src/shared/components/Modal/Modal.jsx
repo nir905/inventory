@@ -96,10 +96,12 @@ const Modal = ({
       {(primaryText || secondaryText) && (
         <Actions>
           {primaryText && (
-            <Button onClick={onPrimaryClick}>{primaryText}</Button>
+            <Button tabIndex={5} onClick={onPrimaryClick}>
+              {primaryText}
+            </Button>
           )}
           {secondaryText && (
-            <SecondaryButton onClick={onSecondaryClick}>
+            <SecondaryButton tabIndex={6} onClick={onSecondaryClick}>
               {secondaryText}
             </SecondaryButton>
           )}
