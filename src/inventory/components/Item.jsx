@@ -17,10 +17,21 @@ const Wrapper = styled.div`
 const Name = styled.div`
   display: flex;
   flex-direction: column;
-  > span:last-child {
-    font-size: 11px;
-    color: #9a9999;
-  }
+  gap: 2px;
+`;
+
+const Comment = styled.span`
+  font-size: 11px;
+  color: #9a9999;
+`;
+
+const Category = styled.span`
+  background: #e4e4e4;
+  color: #9a9999;
+  align-self: flex-start;
+  padding: 4px;
+  border-radius: 4px;
+  font-size: 11px;
 `;
 
 const AmountButton = styled.button`
@@ -42,19 +53,34 @@ const Amount = styled.div`
   }
 `;
 
-const Item = ({ id, name, amount, type, comment, onChangeAmount, onEdit }) => {
+const Item = ({
+  id,
+  name,
+  amount,
+  type,
+  category,
+  comment,
+  onChangeAmount,
+  onEdit,
+}) => {
   const { t } = useTranslation();
   const longPressEvent = useLongPress(onEdit, { cancelOnMovement: true });
 
   const handleChangeAmount = useCallback(
     (increase = true) => {
       const increaseBy =
-        type === "gram" ? 100 : Number.isInteger(amount) ? 1 : 0.1;
+        type === "gram" ? 100 : Number.isInteger(+amount) ? 1 : 0.1;
 
-      let newAmount = increase ? amount + increaseBy : amount - increaseBy;
+      let newAmount = increase ? +amount + increaseBy : +amount - increaseBy;
+
       if (newAmount < 0) {
         newAmount = 0;
       }
+
+      if (!Number.isInteger(newAmount)) {
+        newAmount = +newAmount.toFixed(1);
+      }
+
       onChangeAmount(id, newAmount);
     },
     [type, amount, id]
@@ -64,7 +90,8 @@ const Item = ({ id, name, amount, type, comment, onChangeAmount, onEdit }) => {
     <Wrapper {...longPressEvent()} $empty={amount?.toString() === "0"}>
       <Name>
         <span>{name}</span>
-        <span>{comment}</span>
+        {comment && <Comment>{comment}</Comment>}
+        {category && <Category>{t(`categories.${category}`)}</Category>}
       </Name>
 
       <AmountButton onClick={() => handleChangeAmount(false)}>-</AmountButton>

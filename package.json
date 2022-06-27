@@ -13,6 +13,7 @@
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-i18next": "^11.17.2",
+    "react-minimal-pie-chart": "^8.3.0",
     "react-router-dom": "^6.3.0",
     "styled-components": "^5.3.5",
     "stylis-plugin-rtl": "^1.1.0",

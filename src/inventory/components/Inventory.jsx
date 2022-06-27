@@ -7,16 +7,10 @@ import { ReactComponent as BaseShareIcon } from "../../assets/share.svg";
 import Item from "./Item";
 import ShareModal from "../../modal/components/ShareModal";
 
-const Wrapper = styled.main`
-  background: #ffffff;
-  border-radius: 25px 0 0 0;
-  padding: 16px;
-  height: 100%;
-  overflow: scroll;
-`;
-
 const SearchWrapper = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4px 10px;
   align-items: center;
   position: sticky;
   top: -17px;
@@ -31,18 +25,25 @@ const Search = styled.input`
   padding: 14px;
   border-radius: 8px;
   width: 100%;
+  grid-column: 1/-1;
+`;
+
+const Select = styled(Search).attrs(() => ({ as: "select" }))`
+  grid-column: 1;
 `;
 
 const ShareIcon = styled(BaseShareIcon)`
   width: 24px;
   height: 24px;
-  margin-left: 10px;
+  grid-row: 2;
+  grid-column: 2;
 `;
 
 const List = styled.div`
   display: flex;
   flex-direction: column;
   gap: 18px;
+  padding-bottom: 50px;
 `;
 
 const AddButton = styled.button`
@@ -72,13 +73,17 @@ const Inventory = () => {
   const [search, setSearch] = useState("");
   const [selectedItemModal, setSelectedItemModal] = useState();
   const [shareModal, setShareModal] = useState();
+  const [selectedFilter, setSelectedFilter] = useState();
 
   const filteredList = useMemo(
     () =>
       list
         .filter(({ name }) => name.toLowerCase().includes(search.toLowerCase()))
+        .filter(
+          ({ category }) => !selectedFilter || category === selectedFilter
+        )
         .sort((a, b) => a.name.localeCompare(b.name)),
-    [list, search]
+    [list, search, selectedFilter]
   );
 
   const handleChangeAmount = useCallback((id, newAmount) => {
@@ -107,8 +112,10 @@ const Inventory = () => {
     );
   }, [selectedItemModal]);
 
+  const categoriesOptions = t("categories", { returnObjects: true });
+
   return (
-    <Wrapper>
+    <>
       <SearchWrapper>
         <Search
           placeholder={t("search_items")}
@@ -117,6 +124,18 @@ const Inventory = () => {
         />
 
         <ShareIcon onClick={() => setShareModal(true)} />
+
+        <Select
+          value={selectedFilter || ""}
+          onChange={(e) => setSelectedFilter(e.target.value)}
+        >
+          <option value="">{t("all_categories")}</option>
+          {Object.entries(categoriesOptions).map(([key, value]) => (
+            <option value={key} key={key}>
+              {value}
+            </option>
+          ))}
+        </Select>
       </SearchWrapper>
 
       {list.length > 0 ? (
@@ -152,7 +171,7 @@ const Inventory = () => {
       {shareModal && (
         <ShareModal list={list} onClose={() => setShareModal(false)} />
       )}
-    </Wrapper>
+    </>
   );
 };
 
