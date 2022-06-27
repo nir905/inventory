@@ -25,6 +25,8 @@ const jumpIn = keyframes`
 
 const Container = styled.div`
   width: 90%;
+  max-height: 90%;
+  overflow: scroll;
   background: #fff;
   animation: ${jumpIn} ease 300ms;
   border-radius: 3px;
