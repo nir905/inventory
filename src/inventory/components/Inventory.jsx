@@ -30,7 +30,7 @@ const Search = styled.input`
 
 const Select = styled(Search).attrs(() => ({ as: "select" }))`
   grid-column: 1;
-  -webkit-appearance: none;
+  background: #fff;
 `;
 
 const ShareIcon = styled(BaseShareIcon)`

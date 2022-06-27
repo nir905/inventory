@@ -6,11 +6,11 @@ import { useTranslation } from "react-i18next";
 
 const Input = styled.input`
   border: 1px solid #bcbcbc;
+  background: #fff;
   padding: 14px;
   border-radius: 8px;
   width: 100%;
   margin-bottom: 32px;
-  -webkit-appearance: none;
 `;
 
 const DeleteIcon = styled(BaseDeleteIcon)`
