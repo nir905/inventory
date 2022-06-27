@@ -10,6 +10,7 @@ const Input = styled.input`
   border-radius: 8px;
   width: 100%;
   margin-bottom: 32px;
+  -webkit-appearance: none;
 `;
 
 const DeleteIcon = styled(BaseDeleteIcon)`
