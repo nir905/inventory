@@ -39,18 +39,6 @@ export const AppProvider = ({ children }) => {
     [inventory, user?.uid]
   );
 
-  // migration
-  useEffect(() => {
-    try {
-      const data = JSON.parse(localStorage.getItem("inventoryV1"));
-      if (data) {
-        onChangeInventory(() => data);
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  }, [user?.uid]);
-
   const context = useMemo(
     () => ({
       lang,
