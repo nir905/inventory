@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
-import { logout } from "../services/firebase";
+import { auth, logout } from "../services/firebase";
 import { ReactComponent as BaseLogoutIcon } from "../../assets/logout.svg";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 const Wrapper = styled.h1`
   padding: 32px 16px;
@@ -28,6 +29,7 @@ const LogoutIcon = styled(BaseLogoutIcon)`
 
 const Header = ({ lang, setLang }) => {
   const { t, i18n } = useTranslation();
+  const [user] = useAuthState(auth);
 
   useEffect(() => {
     i18n.changeLanguage(lang);
@@ -41,7 +43,7 @@ const Header = ({ lang, setLang }) => {
         <option value="he">{t("hebrew")}</option>
       </Select>
 
-      <LogoutIcon onClick={logout} />
+      {user && <LogoutIcon onClick={logout} />}
     </Wrapper>
   );
 };
