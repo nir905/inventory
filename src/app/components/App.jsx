@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import styled, { StyleSheetManager } from "styled-components";
 import rtlPlugin from "stylis-plugin-rtl";
@@ -6,8 +6,8 @@ import GlobalStyle from "./GlobalStyle";
 import Header from "./Header";
 import Inventory from "../../inventory";
 import Dashboard from "../../dashboard";
-import useStoredState from "../../inventory/hooks/useStoredState";
 import "../services/i18n";
+import AppContext from "./AppContext";
 
 const Wrapper = styled.main`
   background: #ffffff;
@@ -18,13 +18,13 @@ const Wrapper = styled.main`
 `;
 
 const App = () => {
-  const [lang, setLang] = useStoredState("lang", "en");
+  const { lang, onChangeLang } = useContext(AppContext);
 
   return (
     <StyleSheetManager stylisPlugins={lang === "he" ? [rtlPlugin] : undefined}>
       <>
         <GlobalStyle />
-        <Header lang={lang} setLang={setLang} />
+        <Header lang={lang} setLang={onChangeLang} />
         <Wrapper>
           <BrowserRouter>
             <Routes>

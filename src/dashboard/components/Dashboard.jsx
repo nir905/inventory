@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { PieChart } from "react-minimal-pie-chart";
 import { useTranslation } from "react-i18next";
-import useStoredState from "../../inventory/hooks/useStoredState";
 import SingleValue from "./SingleValue";
+import AppContext from "../../app/components/AppContext";
 
 const Values = styled.div`
   display: grid;
@@ -14,8 +14,7 @@ const COLORS = ["#55549a", "#ff9a9f", "#e482a3", "#bc6ea5", "#8d5fa5"];
 
 const Dashboard = () => {
   const { t } = useTranslation();
-  const [list] = useStoredState("inventoryV1", []);
-
+  const { inventory: list } = useContext(AppContext);
   const categoriesOptions = t("categories", { returnObjects: true });
 
   return (

@@ -1,11 +1,15 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useContext, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 import AddItemModal from "../../modal/components/ItemModal";
-import useStoredState from "../hooks/useStoredState";
 import { ReactComponent as BaseShareIcon } from "../../assets/share.svg";
 import Item from "./Item";
 import ShareModal from "../../modal/components/ShareModal";
+import AppContext from "../../app/components/AppContext";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth, login } from "../../app/services/firebase";
+import Loading from "../../shared/components/Loading";
+import Button from "../../shared/components/Button";
 
 const SearchWrapper = styled.div`
   display: grid;
@@ -68,9 +72,17 @@ const Empty = styled.div`
   color: #9a9999;
 `;
 
+const LoginButton = styled(Button)`
+  margin: 20% auto;
+  display: block;
+  padding: 20px 40px;
+  font-size: 15px;
+`;
+
 const Inventory = () => {
   const { t } = useTranslation();
-  const [list, setList] = useStoredState("inventoryV1", []);
+  const { inventory: list, onChangeInventory: setList } =
+    useContext(AppContext);
   const [search, setSearch] = useState("");
   const [selectedItemModal, setSelectedItemModal] = useState();
   const [shareModal, setShareModal] = useState();
@@ -87,33 +99,49 @@ const Inventory = () => {
     [list, search, selectedFilter]
   );
 
-  const handleChangeAmount = useCallback((id, newAmount) => {
-    setList((prevList) =>
-      prevList.map((item) =>
-        item.id === id ? { ...item, amount: newAmount } : item
-      )
-    );
-  }, []);
-
-  const handleSaveItem = useCallback((newItem) => {
-    if (newItem.id) {
+  const handleChangeAmount = useCallback(
+    (id, newAmount) => {
       setList((prevList) =>
         prevList.map((item) =>
-          item.id === newItem.id ? { ...item, ...newItem } : item
+          item.id === id ? { ...item, amount: newAmount } : item
         )
       );
-    } else {
-      setList((prevList) => [...prevList, { ...newItem, id: Math.random() }]);
-    }
-  }, []);
+    },
+    [setList]
+  );
+
+  const handleSaveItem = useCallback(
+    (newItem) => {
+      if (newItem.id) {
+        setList((prevList) =>
+          prevList.map((item) =>
+            item.id === newItem.id ? { ...item, ...newItem } : item
+          )
+        );
+      } else {
+        setList((prevList) => [...prevList, { ...newItem, id: Math.random() }]);
+      }
+    },
+    [setList]
+  );
 
   const handleDeleteItem = useCallback(() => {
     setList((prevList) =>
       prevList.filter((item) => item.id !== selectedItemModal.id)
     );
-  }, [selectedItemModal]);
+  }, [setList, selectedItemModal]);
 
   const categoriesOptions = t("categories", { returnObjects: true });
+
+  const [user, loading] = useAuthState(auth);
+
+  if (loading) {
+    return <Loading />;
+  }
+
+  if (!user) {
+    return <LoginButton onClick={login}>Login with Google</LoginButton>;
+  }
 
   return (
     <>

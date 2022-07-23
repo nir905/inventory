@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
+import { logout } from "../services/firebase";
+import { ReactComponent as BaseLogoutIcon } from "../../assets/logout.svg";
 
 const Wrapper = styled.h1`
   padding: 32px 16px;
@@ -18,6 +20,12 @@ const Select = styled.select`
   border-radius: 8px;
 `;
 
+const LogoutIcon = styled(BaseLogoutIcon)`
+  width: 30px;
+  height: 30px;
+  color: #fff;
+`;
+
 const Header = ({ lang, setLang }) => {
   const { t, i18n } = useTranslation();
 
@@ -32,6 +40,8 @@ const Header = ({ lang, setLang }) => {
         <option value="en">{t("english")}</option>
         <option value="he">{t("hebrew")}</option>
       </Select>
+
+      <LogoutIcon onClick={logout} />
     </Wrapper>
   );
 };
