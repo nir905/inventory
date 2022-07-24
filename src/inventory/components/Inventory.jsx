@@ -9,7 +9,12 @@ import AppContext from "../../app/components/AppContext";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, login } from "../../app/services/firebase";
 import Loading from "../../shared/components/Loading";
-import Button from "../../shared/components/Button";
+import LoginPage from "../../shared/components/LoginPage";
+import {
+  clickAddNewItem,
+  clickChangeAmount,
+  clickEditItem,
+} from "../../app/services/analytics";
 
 const SearchWrapper = styled.div`
   display: grid;
@@ -72,11 +77,10 @@ const Empty = styled.div`
   color: #9a9999;
 `;
 
-const LoginButton = styled(Button)`
-  margin: 20% auto;
-  display: block;
-  padding: 20px 40px;
-  font-size: 15px;
+const CenterContent = styled.div`
+  display: flex;
+  align-items: center;
+  height: 100%;
 `;
 
 const Inventory = () => {
@@ -106,6 +110,7 @@ const Inventory = () => {
           item.id === id ? { ...item, amount: newAmount } : item
         )
       );
+      clickChangeAmount();
     },
     [setList]
   );
@@ -136,11 +141,19 @@ const Inventory = () => {
   const [user, loading] = useAuthState(auth);
 
   if (loading) {
-    return <Loading />;
+    return (
+      <CenterContent>
+        <Loading />
+      </CenterContent>
+    );
   }
 
   if (!user) {
-    return <LoginButton onClick={login}>Login with Google</LoginButton>;
+    return (
+      <CenterContent>
+        <LoginPage onLoginWithGoogle={login}>Login with Google</LoginPage>
+      </CenterContent>
+    );
   }
 
   return (
@@ -174,7 +187,10 @@ const Inventory = () => {
               {...item}
               key={item.id}
               onChangeAmount={handleChangeAmount}
-              onEdit={() => setSelectedItemModal(item)}
+              onEdit={() => {
+                setSelectedItemModal(item);
+                clickEditItem();
+              }}
             />
           ))}
         </List>
@@ -186,7 +202,14 @@ const Inventory = () => {
         <Empty>{t("no_items_found")}</Empty>
       )}
 
-      <AddButton onClick={() => setSelectedItemModal({})}>+</AddButton>
+      <AddButton
+        onClick={() => {
+          setSelectedItemModal({});
+          clickAddNewItem();
+        }}
+      >
+        +
+      </AddButton>
 
       {selectedItemModal && (
         <AddItemModal

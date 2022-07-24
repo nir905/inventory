@@ -22,8 +22,8 @@ const Select = styled.select`
 `;
 
 const LogoutIcon = styled(BaseLogoutIcon)`
-  width: 30px;
-  height: 30px;
+  width: 24px;
+  height: 24px;
   color: #fff;
 `;
 

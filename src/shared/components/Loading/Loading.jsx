@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const Loading = styled.div`
-  margin: 20% auto;
+  margin: 0 auto;
   width: 200px;
   height: 200px;
   background-color: #7364f0;

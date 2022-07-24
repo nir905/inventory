@@ -6,26 +6,19 @@ import React, {
   useMemo,
 } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth, listenToDB, setDB } from "../services/firebase";
+import useStoredState from "../hooks/useStoredState";
+import { auth, listenToValue, setValue } from "../services/firebase";
 
 const AppContext = createContext({ lang: "en", inventory: [] });
 
 export const AppProvider = ({ children }) => {
   const [user] = useAuthState(auth);
-  const [lang, setLang] = useState("en");
+  const [lang, setLang] = useStoredState("lang", "en");
   const [inventory, setInventory] = useState([]);
 
   useEffect(() => {
-    listenToDB(user?.uid, "lang", setLang, "en");
-    listenToDB(user?.uid, "inventory", setInventory, []);
+    listenToValue(user?.uid, "inventory", setInventory, []);
   }, [user?.uid]);
-
-  const onChangeLang = useCallback(
-    (newLang) => {
-      setDB(user?.uid, "lang", newLang);
-    },
-    [user?.uid]
-  );
 
   const onChangeInventory = useCallback(
     (newValueOrFunction) => {
@@ -34,7 +27,7 @@ export const AppProvider = ({ children }) => {
       if (typeof newValueOrFunction === "function") {
         newValue = newValueOrFunction(inventory);
       }
-      setDB(user?.uid, "inventory", newValue);
+      setValue(user?.uid, "inventory", newValue);
     },
     [inventory, user?.uid]
   );
@@ -42,11 +35,11 @@ export const AppProvider = ({ children }) => {
   const context = useMemo(
     () => ({
       lang,
-      onChangeLang,
+      onChangeLang: setLang,
       inventory,
       onChangeInventory,
     }),
-    [lang, onChangeLang, inventory, onChangeInventory]
+    [lang, setLang, inventory, onChangeInventory]
   );
 
   return <AppContext.Provider value={context}>{children}</AppContext.Provider>;

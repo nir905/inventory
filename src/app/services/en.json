@@ -25,6 +25,7 @@
   "copy": "Copy",
   "select_category": "Select category...",
   "all_categories": "All categories",
+  "sign_in_with_google": "Sign in with google",
   "categories": {
     "kids": "Kids",
     "vegetables": "Vegetables & Fruits",

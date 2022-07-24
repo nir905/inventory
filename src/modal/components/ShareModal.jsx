@@ -4,6 +4,10 @@ import Modal from "../../shared/components/Modal";
 import { useTranslation } from "react-i18next";
 import Button from "../../shared/components/Button";
 import RadioButton from "../../shared/components/RadioButton";
+import {
+  clickShareCopy,
+  clickShareWhatsapp,
+} from "../../app/services/analytics";
 
 const Content = styled.div`
   > button,
@@ -13,6 +17,7 @@ const Content = styled.div`
     text-align: center;
     margin-top: 12px;
     text-decoration: none;
+    font-size: 14px;
   }
 `;
 
@@ -52,7 +57,10 @@ const ShareModal = ({ list: baseList, onClose }) => {
             .join("%0a")}`}
           rel="nofollow noopener"
           target="_blank"
-          onClick={onClose}
+          onClick={() => {
+            onClose();
+            clickShareWhatsapp();
+          }}
         >
           {t("share_whatsapp")}
         </Button>
@@ -63,6 +71,7 @@ const ShareModal = ({ list: baseList, onClose }) => {
               `${title}:\n${list.map(({ name }) => name).join("\n")}`
             );
             onClose();
+            clickShareCopy();
           }}
         >
           {t("copy")}
