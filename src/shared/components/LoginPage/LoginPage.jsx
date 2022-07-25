@@ -1,6 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
+import BaseButton from "../Button";
 
 const GoogleButton = styled.div`
   min-width: 210px;
@@ -42,7 +43,13 @@ const GoogleButton = styled.div`
   }
 `;
 
-const LoginPage = ({ onLoginWithGoogle }) => {
+const Button = styled(BaseButton)`
+  padding: 14px;
+  min-width: 210px;
+  font-weight: 600;
+`;
+
+const LoginPage = ({ onLoginWithGoogle, onLoginAnonymously }) => {
   const { t } = useTranslation();
   return (
     <>
@@ -55,6 +62,8 @@ const LoginPage = ({ onLoginWithGoogle }) => {
         </div>
         <p className="btn-text">{t("sign_in_with_google")}</p>
       </GoogleButton>
+
+      <Button onClick={onLoginAnonymously}>{t("sign_in_anonymously")}</Button>
     </>
   );
 };

@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
-import { auth, logout } from "../services/firebase";
-import { ReactComponent as BaseLogoutIcon } from "../../assets/logout.svg";
-import { useAuthState } from "react-firebase-hooks/auth";
+import { ReactComponent as BaseMenuIcon } from "../../assets/menu.svg";
+import Drawer from "./Drawer";
 
 const Wrapper = styled.h1`
   padding: 32px 16px;
@@ -11,39 +10,26 @@ const Wrapper = styled.h1`
   color: #fff;
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   font-size: 24px;
 `;
 
-const Select = styled.select`
-  border: 1px solid #bcbcbc;
-  padding: 4px 8px;
-  border-radius: 8px;
-`;
-
-const LogoutIcon = styled(BaseLogoutIcon)`
+const MenuIcon = styled(BaseMenuIcon)`
   width: 24px;
   height: 24px;
   color: #fff;
 `;
 
-const Header = ({ lang, setLang }) => {
-  const { t, i18n } = useTranslation();
-  const [user] = useAuthState(auth);
-
-  useEffect(() => {
-    i18n.changeLanguage(lang);
-  }, [lang]);
+const Header = () => {
+  const { t } = useTranslation();
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   return (
     <Wrapper>
       {t("app_name")}
-      <Select value={lang} onChange={(e) => setLang(e.target.value)}>
-        <option value="en">{t("english")}</option>
-        <option value="he">{t("hebrew")}</option>
-      </Select>
 
-      {user && <LogoutIcon onClick={logout} />}
+      <MenuIcon onClick={() => setDrawerOpen(true)} />
+      {drawerOpen && <Drawer onClose={() => setDrawerOpen(false)} />}
     </Wrapper>
   );
 };

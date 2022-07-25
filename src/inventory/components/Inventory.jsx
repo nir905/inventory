@@ -7,7 +7,11 @@ import Item from "./Item";
 import ShareModal from "../../modal/components/ShareModal";
 import AppContext from "../../app/components/AppContext";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth, login } from "../../app/services/firebase";
+import {
+  auth,
+  loginWithGoogle,
+  loginAnonymously,
+} from "../../app/services/firebase";
 import Loading from "../../shared/components/Loading";
 import LoginPage from "../../shared/components/LoginPage";
 import {
@@ -80,7 +84,10 @@ const Empty = styled.div`
 const CenterContent = styled.div`
   display: flex;
   align-items: center;
+  justify-content: center;
+  flex-direction: column;
   height: 100%;
+  gap: 10px;
 `;
 
 const Inventory = () => {
@@ -151,7 +158,12 @@ const Inventory = () => {
   if (!user) {
     return (
       <CenterContent>
-        <LoginPage onLoginWithGoogle={login}>Login with Google</LoginPage>
+        <LoginPage
+          onLoginWithGoogle={loginWithGoogle}
+          onLoginAnonymously={loginAnonymously}
+        >
+          Login with Google
+        </LoginPage>
       </CenterContent>
     );
   }

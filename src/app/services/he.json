@@ -26,6 +26,8 @@
   "select_category": "בחירת קטגוריה...",
   "all_categories": "כל הקטגוריות",
   "sign_in_with_google": "התחבר/י עם גוגל",
+  "sign_in_anonymously": "התחבר/י כאורח/ת",
+  "logout": "התנתקות",
   "categories": {
     "kids": "ילדים",
     "vegetables": "פירות וירקות",

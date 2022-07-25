@@ -18,13 +18,13 @@ const Wrapper = styled.main`
 `;
 
 const App = () => {
-  const { lang, onChangeLang } = useContext(AppContext);
+  const { lang } = useContext(AppContext);
 
   return (
     <StyleSheetManager stylisPlugins={lang === "he" ? [rtlPlugin] : undefined}>
       <>
         <GlobalStyle />
-        <Header lang={lang} setLang={onChangeLang} />
+        <Header />
         <Wrapper>
           <BrowserRouter>
             <Routes>

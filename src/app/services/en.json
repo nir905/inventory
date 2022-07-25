@@ -26,6 +26,8 @@
   "select_category": "Select category...",
   "all_categories": "All categories",
   "sign_in_with_google": "Sign in with google",
+  "sign_in_anonymously": "Sign in anonymously",
+  "logout": "Logout",
   "categories": {
     "kids": "Kids",
     "vegetables": "Vegetables & Fruits",

@@ -1,6 +1,10 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, signOut } from "firebase/auth";
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import {
+  GoogleAuthProvider,
+  signInWithPopup,
+  signInAnonymously,
+} from "firebase/auth";
 import { getDatabase, ref, set, onValue } from "firebase/database";
 import { getAnalytics } from "firebase/analytics";
 
@@ -23,7 +27,8 @@ export const auth = getAuth(app);
 export const analytics = getAnalytics(app);
 
 const provider = new GoogleAuthProvider();
-export const login = () => signInWithPopup(auth, provider);
+export const loginWithGoogle = () => signInWithPopup(auth, provider);
+export const loginAnonymously = () => signInAnonymously(auth, provider);
 export const logout = () => signOut(auth);
 
 export const listenToValue = (uid, key, setValue, defaultValue) => {
