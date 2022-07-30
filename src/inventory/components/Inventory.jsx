@@ -6,14 +6,6 @@ import { ReactComponent as BaseShareIcon } from "../../assets/share.svg";
 import Item from "./Item";
 import ShareModal from "../../modal/components/ShareModal";
 import AppContext from "../../app/components/AppContext";
-import { useAuthState } from "react-firebase-hooks/auth";
-import {
-  auth,
-  loginWithGoogle,
-  loginAnonymously,
-} from "../../app/services/firebase";
-import Loading from "../../shared/components/Loading";
-import LoginPage from "../../shared/components/LoginPage";
 import {
   clickAddNewItem,
   clickChangeAmount,
@@ -45,7 +37,7 @@ const Select = styled(Search).attrs(() => ({ as: "select" }))`
   grid-column: 1;
   background: #fff;
 
-  :hover{
+  :hover {
     cursor: pointer;
   }
 `;
@@ -56,9 +48,8 @@ const ShareIcon = styled(BaseShareIcon)`
   grid-row: 2;
   grid-column: 2;
 
-  :hover{
+  :hover {
     cursor: pointer;
-    
   }
 `;
 
@@ -81,8 +72,8 @@ const AddButton = styled.button`
   font-size: 32px;
   border: none;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  
-  :hover{
+
+  :hover {
     cursor: pointer;
   }
 `;
@@ -92,15 +83,6 @@ const Empty = styled.div`
   font-size: 32px;
   margin-top: 64px;
   color: #9a9999;
-`;
-
-const CenterContent = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  height: 100%;
-  gap: 10px;
 `;
 
 const Inventory = () => {
@@ -157,29 +139,6 @@ const Inventory = () => {
   }, [setList, selectedItemModal]);
 
   const categoriesOptions = t("categories", { returnObjects: true });
-
-  const [user, loading] = useAuthState(auth);
-
-  if (loading) {
-    return (
-      <CenterContent>
-        <Loading />
-      </CenterContent>
-    );
-  }
-
-  if (!user) {
-    return (
-      <CenterContent>
-        <LoginPage
-          onLoginWithGoogle={loginWithGoogle}
-          onLoginAnonymously={loginAnonymously}
-        >
-          Login with Google
-        </LoginPage>
-      </CenterContent>
-    );
-  }
 
   return (
     <>
