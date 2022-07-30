@@ -39,7 +39,7 @@ const Image = styled.img`
   width: 45px;
   height: 45px;
   border-radius: 100%;
-  margin: 7px 0;
+  grid-row: span 2;
 `;
 
 const Select = styled.select`
@@ -69,6 +69,23 @@ const Item = styled.div`
   }
 `;
 
+const UserInfo = styled.div`
+  display: grid;
+  grid-template-columns: auto 1fr;
+  margin: 9px 0;
+  grid-gap: 0px 8px;
+
+  > b:first-of-type {
+    align-self: flex-end;
+  }
+  > b:last-of-type {
+    align-self: flex-start;
+    font-size: 11px;
+    color: #9a9999;
+    font-weight: 400;
+  }
+`;
+
 const Drawer = ({ onClose }) => {
   const { t, i18n } = useTranslation();
   const { lang, onChangeLang } = useContext(AppContext);
@@ -82,7 +99,15 @@ const Drawer = ({ onClose }) => {
     <Wrapper onClick={onClose}>
       <Content onClick={(e) => e.stopPropagation()}>
         <Item>
-          <Image src={user?.photoURL} />
+          <UserInfo>
+            <Image src={user?.photoURL} />
+            {user && (
+              <>
+                <b>{user.displayName}</b>
+                <b>{user.email}</b>
+              </>
+            )}
+          </UserInfo>
         </Item>
 
         <Item>
