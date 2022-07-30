@@ -50,10 +50,8 @@ const Select = styled.select`
   font-size: 16px;
   font-weight: 600;
   background: #fff;
+  cursor: pointer;
 
-  :hover {
-    cursor: pointer;
-  }
 `;
 
 const Item = styled.div`
@@ -63,10 +61,7 @@ const Item = styled.div`
   border-top: 1px solid #dcd9d9;
   display: block;
   text-decoration: none;
-
-  :hover {
-    cursor: pointer;
-  }
+  cursor: pointer;
 `;
 
 const UserInfo = styled.div`
