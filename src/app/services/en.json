@@ -22,6 +22,7 @@
   "share": "Share",
   "full_list": "Full list",
   "missing_items": "Missing items",
+  "total_items": "Total items",
   "share_whatsapp": "Share on Whatsapp",
   "copy": "Copy",
   "select_category": "Select category...",
@@ -29,6 +30,8 @@
   "sign_in_with_google": "Sign in with google",
   "sign_in_anonymously": "Sign in anonymously",
   "logout": "Logout",
+  "list": "List",
+  "dashboard": "Dashboard",
   "categories": {
     "kids": "Kids",
     "vegetables": "Vegetables & Fruits",

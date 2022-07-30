@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from "react";
+import { NavLink } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useTranslation } from "react-i18next";
 import styled, { keyframes } from "styled-components";
@@ -29,8 +30,8 @@ const Content = styled.div`
   left: 0;
   bottom: 0;
   width: 80%;
+  max-width: 500px;
   background: #fff;
-  padding-top: ${({ $hasImage }) => ($hasImage ? 0 : 90)}px;
   animation: ${enter} 250ms ease-out;
 `;
 
@@ -38,7 +39,7 @@ const Image = styled.img`
   width: 45px;
   height: 45px;
   border-radius: 100%;
-  margin: 7px 0;
+  grid-row: span 2;
 `;
 
 const Select = styled.select`
@@ -48,8 +49,9 @@ const Select = styled.select`
   color: #7364f0;
   font-size: 16px;
   font-weight: 600;
+  background: #fff;
 
-  :hover{
+  :hover {
     cursor: pointer;
   }
 `;
@@ -59,9 +61,28 @@ const Item = styled.div`
   font-size: 16px;
   padding: 13px;
   border-top: 1px solid #dcd9d9;
+  display: block;
+  text-decoration: none;
 
-  :hover{
+  :hover {
     cursor: pointer;
+  }
+`;
+
+const UserInfo = styled.div`
+  display: grid;
+  grid-template-columns: auto 1fr;
+  margin: 9px 0;
+  grid-gap: 0px 8px;
+
+  > b:first-of-type {
+    align-self: flex-end;
+  }
+  > b:last-of-type {
+    align-self: flex-start;
+    font-size: 11px;
+    color: #9a9999;
+    font-weight: 400;
   }
 `;
 
@@ -76,15 +97,18 @@ const Drawer = ({ onClose }) => {
 
   return (
     <Wrapper onClick={onClose}>
-      <Content
-        $hasImage={!!user?.photoURL}
-        onClick={(e) => e.stopPropagation()}
-      >
-        {user?.photoURL && (
-          <Item>
-            <Image src={user.photoURL} />
-          </Item>
-        )}
+      <Content onClick={(e) => e.stopPropagation()}>
+        <Item>
+          <UserInfo>
+            <Image src={user?.photoURL} />
+            {user && (
+              <>
+                <b>{user.displayName}</b>
+                <b>{user.email}</b>
+              </>
+            )}
+          </UserInfo>
+        </Item>
 
         <Item>
           <Select value={lang} onChange={(e) => onChangeLang(e.target.value)}>
@@ -94,14 +118,24 @@ const Drawer = ({ onClose }) => {
         </Item>
 
         {user && (
-          <Item
-            onClick={() => {
-              logout();
-              onClose();
-            }}
-          >
-            {t("logout")}
-          </Item>
+          <>
+            <Item as={NavLink} to="/" onClick={onClose}>
+              {t("list")}
+            </Item>
+
+            <Item as={NavLink} to="/dashboard" onClick={onClose}>
+              {t("dashboard")}
+            </Item>
+
+            <Item
+              onClick={() => {
+                logout();
+                onClose();
+              }}
+            >
+              {t("logout")}
+            </Item>
+          </>
         )}
       </Content>
     </Wrapper>
