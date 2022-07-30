@@ -40,6 +40,9 @@ const ItemModal = ({ item = {}, onClose, onSave, onDelete }) => {
       }}
       secondaryText={t("cancel")}
       onSecondaryClick={onClose}
+      thirdText={t("add_another_item")}
+      // onThirdClick={onAddAnotherItem}
+
     >
       <Input
         placeholder={t("name")}
@@ -95,7 +98,6 @@ const ItemModal = ({ item = {}, onClose, onSave, onDelete }) => {
           setState((prev) => ({ ...prev, comment: e.target.value }))
         }
       />
-
       {item.id && <DeleteIcon onClick={() => setShowDeleteModal(true)} />}
       {showDeleteModal && (
         <Modal
