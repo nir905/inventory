@@ -30,7 +30,7 @@ const Content = styled.div`
   left: 0;
   bottom: 0;
   width: 80%;
-  max-width: 500px;
+  max-width: 450px;
   background: #fff;
   animation: ${enter} 250ms ease-out;
 `;
