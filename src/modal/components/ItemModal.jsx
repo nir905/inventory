@@ -47,6 +47,7 @@ const ItemModal = ({ item = {}, onClose, onSave, onDelete }) => {
         onChange={(e) =>
           setState((prev) => ({ ...prev, name: e.target.value }))
         }
+        autoFocus
       />
 
       <Input

@@ -41,10 +41,7 @@ const AmountButton = styled.button`
   width: 32px;
   height: 32px;
   font-size: 18px;
-
-  :hover{
-    cursor: pointer;
-  }
+  cursor: pointer;
 `;
 
 const Amount = styled.div`

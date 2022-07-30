@@ -18,10 +18,7 @@ const MenuIcon = styled(BaseMenuIcon)`
   width: 24px;
   height: 24px;
   color: #fff;
-
-  :hover{
     cursor: pointer;
-  }
 `;
 
 const Header = () => {
