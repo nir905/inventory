@@ -48,6 +48,10 @@ const Select = styled.select`
   color: #7364f0;
   font-size: 16px;
   font-weight: 600;
+
+  :hover{
+    cursor: pointer;
+  }
 `;
 
 const Item = styled.div`
@@ -55,6 +59,10 @@ const Item = styled.div`
   font-size: 16px;
   padding: 13px;
   border-top: 1px solid #dcd9d9;
+
+  :hover{
+    cursor: pointer;
+  }
 `;
 
 const Drawer = ({ onClose }) => {
