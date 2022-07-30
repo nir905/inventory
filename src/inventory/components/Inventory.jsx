@@ -36,10 +36,7 @@ const Search = styled.input`
 const Select = styled(Search).attrs(() => ({ as: "select" }))`
   grid-column: 1;
   background: #fff;
-
-  :hover {
-    cursor: pointer;
-  }
+  cursor: pointer;
 `;
 
 const ShareIcon = styled(BaseShareIcon)`
@@ -47,10 +44,7 @@ const ShareIcon = styled(BaseShareIcon)`
   height: 24px;
   grid-row: 2;
   grid-column: 2;
-
-  :hover {
-    cursor: pointer;
-  }
+  cursor: pointer;
 `;
 
 const List = styled.div`
@@ -72,10 +66,7 @@ const AddButton = styled.button`
   font-size: 32px;
   border: none;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-
-  :hover {
-    cursor: pointer;
-  }
+  cursor: pointer;
 `;
 
 const Empty = styled.div`
