@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from "react";
+import { NavLink } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useTranslation } from "react-i18next";
 import styled, { keyframes } from "styled-components";
@@ -29,8 +30,8 @@ const Content = styled.div`
   left: 0;
   bottom: 0;
   width: 80%;
+  max-width: 500px;
   background: #fff;
-  padding-top: ${({ $hasImage }) => ($hasImage ? 0 : 90)}px;
   animation: ${enter} 250ms ease-out;
 `;
 
@@ -60,6 +61,8 @@ const Item = styled.div`
   font-size: 16px;
   padding: 13px;
   border-top: 1px solid #dcd9d9;
+  display: block;
+  text-decoration: none;
 
   :hover {
     cursor: pointer;
@@ -77,15 +80,10 @@ const Drawer = ({ onClose }) => {
 
   return (
     <Wrapper onClick={onClose}>
-      <Content
-        $hasImage={!!user?.photoURL}
-        onClick={(e) => e.stopPropagation()}
-      >
-        {user?.photoURL && (
-          <Item>
-            <Image src={user.photoURL} />
-          </Item>
-        )}
+      <Content onClick={(e) => e.stopPropagation()}>
+        <Item>
+          <Image src={user?.photoURL} />
+        </Item>
 
         <Item>
           <Select value={lang} onChange={(e) => onChangeLang(e.target.value)}>
@@ -95,14 +93,24 @@ const Drawer = ({ onClose }) => {
         </Item>
 
         {user && (
-          <Item
-            onClick={() => {
-              logout();
-              onClose();
-            }}
-          >
-            {t("logout")}
-          </Item>
+          <>
+            <Item as={NavLink} to="/" onClick={onClose}>
+              {t("list")}
+            </Item>
+
+            <Item as={NavLink} to="/dashboard" onClick={onClose}>
+              {t("dashboard")}
+            </Item>
+
+            <Item
+              onClick={() => {
+                logout();
+                onClose();
+              }}
+            >
+              {t("logout")}
+            </Item>
+          </>
         )}
       </Content>
     </Wrapper>

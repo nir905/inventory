@@ -21,6 +21,7 @@
   "share": "שיתוף",
   "full_list": "כל הרשימה",
   "missing_items": "מוצרים חסרים",
+  "total_items": "סה\"כ מוצרים",
   "share_whatsapp": "שתף בווטאספ",
   "copy": "העתק",
   "select_category": "בחירת קטגוריה...",
@@ -28,6 +29,8 @@
   "sign_in_with_google": "התחבר/י עם גוגל",
   "sign_in_anonymously": "התחבר/י כאורח/ת",
   "logout": "התנתקות",
+  "list": "רשימה",
+  "dashboard": "דשבורד",
   "categories": {
     "kids": "ילדים",
     "vegetables": "פירות וירקות",

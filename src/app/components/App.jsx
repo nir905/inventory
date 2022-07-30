@@ -23,16 +23,16 @@ const App = () => {
   return (
     <StyleSheetManager stylisPlugins={lang === "he" ? [rtlPlugin] : undefined}>
       <>
-        <GlobalStyle />
-        <Header />
-        <Wrapper>
-          <BrowserRouter>
+        <BrowserRouter>
+          <GlobalStyle />
+          <Header />
+          <Wrapper>
             <Routes>
               <Route path="/" element={<Inventory />} />
               <Route path="/dashboard" element={<Dashboard />} />
             </Routes>
-          </BrowserRouter>
-        </Wrapper>
+          </Wrapper>
+        </BrowserRouter>
       </>
     </StyleSheetManager>
   );
