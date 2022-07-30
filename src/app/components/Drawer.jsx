@@ -48,8 +48,9 @@ const Select = styled.select`
   color: #7364f0;
   font-size: 16px;
   font-weight: 600;
+  background: #fff;
 
-  :hover{
+  :hover {
     cursor: pointer;
   }
 `;
@@ -60,7 +61,7 @@ const Item = styled.div`
   padding: 13px;
   border-top: 1px solid #dcd9d9;
 
-  :hover{
+  :hover {
     cursor: pointer;
   }
 `;
