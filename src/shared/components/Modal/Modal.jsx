@@ -59,7 +59,6 @@ const CloseIconWrapper = styled.div`
 const Content = styled.div`
   padding: 16px;
 `;
-
 const Actions = styled.div`
   padding: 0 16px 16px;
   display: flex;
@@ -81,6 +80,8 @@ const Modal = ({
   onPrimaryClick,
   secondaryText,
   onSecondaryClick,
+  thirdText,
+  onThirdClick,
   onClose,
 }) => (
   <Wrapper>
@@ -105,6 +106,11 @@ const Modal = ({
           {secondaryText && (
             <SecondaryButton tabIndex={6} onClick={onSecondaryClick}>
               {secondaryText}
+            </SecondaryButton>
+          )}
+          {thirdText && (
+            <SecondaryButton tabIndex={7} onClick={onThirdClick}>
+              {thirdText}
             </SecondaryButton>
           )}
         </Actions>
