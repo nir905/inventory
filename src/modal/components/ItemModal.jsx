@@ -41,7 +41,15 @@ const ItemModal = ({ item = {}, onClose, onSave, onDelete }) => {
       secondaryText={t("cancel")}
       onSecondaryClick={onClose}
       thirdText={t("add_another_item")}
-      // onThirdClick={onAddAnotherItem}
+      onThirdClick={() => {
+        if (!state.name || state.amount === undefined){
+          return;
+        }
+        onSave(state);
+        state.name = '';
+        state.amount = undefined;
+        state.comment = '';
+      } }
     >
       <Input
         placeholder={t("name")}
