@@ -154,7 +154,7 @@ const Inventory = () => {
           ))}
         </Select>
       </SearchWrapper>
-      <div>{filteredList.length} {t("products_in_list")}</div>
+
       {list.length > 0 ? (
         <List>
           {filteredList.map((item) => (
