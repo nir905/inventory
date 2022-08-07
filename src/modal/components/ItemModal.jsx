@@ -13,22 +13,12 @@ const Input = styled.input`
   margin-bottom: 32px;
 `;
 
-// const itemAddedModal = styled.div`
-// display: none;
-// border: 1px solid #bcbcbc;
-// background: green;
-// color: red;
-// z-index: 20;
-// `;
-
 const DeleteIcon = styled(BaseDeleteIcon)`
   width: 32px;
   height: 32px;
   color: #f11a1a;
   cursor: pointer;
 `;
-
-
 
 const ItemModal = ({ item = {}, onClose, onSave, onDelete }) => {
   const { t } = useTranslation();
@@ -38,11 +28,16 @@ const ItemModal = ({ item = {}, onClose, onSave, onDelete }) => {
   const categoriesOptions = t("categories", { returnObjects: true });
 
   const onSaveItem = () => {
-    if (!state.name || state.amount === undefined){
+    if (!state.name || state.amount === undefined) {
       return;
     }
-    onSave(state)
-  }
+    onSave(state);
+  };
+
+  const onAddAnotherItemClick = () => {
+    onSaveItem();
+    setState({ type: "unit" });
+  };
 
   return (
     <Modal
@@ -55,11 +50,12 @@ const ItemModal = ({ item = {}, onClose, onSave, onDelete }) => {
       }}
       secondaryText={t("cancel")}
       onSecondaryClick={onClose}
-      thirdText={t("add_another_item")}
-      onThirdClick={() => {
-        onSaveItem();
-        setState({});
-      }}
+      {...(!item.id
+        ? {
+            thirdText: t("add_another_item"),
+            onThirdClick: onAddAnotherItemClick,
+          }
+        : {})}
     >
       <Input
         placeholder={t("name")}

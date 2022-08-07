@@ -59,6 +59,7 @@ const CloseIconWrapper = styled.div`
 const Content = styled.div`
   padding: 16px;
 `;
+
 const Actions = styled.div`
   padding: 0 16px 16px;
   display: flex;
