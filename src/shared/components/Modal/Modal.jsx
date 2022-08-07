@@ -25,6 +25,7 @@ const jumpIn = keyframes`
 
 const Container = styled.div`
   width: 90%;
+  max-width: 500px;
   max-height: 90%;
   overflow: auto;
   background: #fff;

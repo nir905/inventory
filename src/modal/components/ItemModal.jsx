@@ -21,23 +21,31 @@ const ItemModal = ({ item = {}, onClose, onSave, onDelete }) => {
 
   const categoriesOptions = t("categories", { returnObjects: true });
 
+  const onSaveItem = (cb) => {
+    if (!state.name || state.amount === undefined) {
+      return;
+    }
+    onSave(state);
+    cb();
+  };
+
+  const onAddAnotherItemClick = () => {
+    onSaveItem(() => setState({ type: "unit" }));
+  };
+
   return (
     <Modal
       onClose={onClose}
       title={item.id ? t("update_item") : t("add_item")}
       primaryText={t("save")}
-      onPrimaryClick={() => {
-        if (!state.name || state.amount === undefined) {
-          return;
-        }
-        onSave(state);
-        onClose();
-      }}
+      onPrimaryClick={() => onSaveItem(onClose)}
       secondaryText={t("cancel")}
       onSecondaryClick={onClose}
-      thirdText={item.id && t("delete")}
-      thirdImportant
-      onThirdClick={() => setShowDeleteModal(true)}
+      thirdText={item.id ? t("delete") : t("add_another_item")}
+      thirdImportant={item.id}
+      onThirdClick={
+        item.id ? () => setShowDeleteModal(true) : onAddAnotherItemClick
+      }
     >
       <Input
         placeholder={t("name")}
@@ -94,7 +102,6 @@ const ItemModal = ({ item = {}, onClose, onSave, onDelete }) => {
           setState((prev) => ({ ...prev, comment: e.target.value }))
         }
       />
-
       {showDeleteModal && (
         <Modal
           title={t("delete_item")}
