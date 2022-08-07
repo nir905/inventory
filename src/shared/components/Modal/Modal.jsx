@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { keyframes } from "styled-components";
-import Button, { SecondaryButton } from "../Button";
+import Button, { SecondaryButton, ImportantButton } from "../Button";
 import { ReactComponent as CloseIcon } from "../../../assets/x.svg";
 
 const Wrapper = styled.div`
@@ -62,15 +62,17 @@ const Content = styled.div`
 
 const Actions = styled.div`
   padding: 0 16px 16px;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 12px;
   align-items: center;
-  justify-content: center;
 
   > button {
     min-width: 100px;
-  }
-  > button:not(:last-child) {
-    margin-right: 8px;
+
+    &:nth-child(3) {
+      grid-column: 1/-1;
+    }
   }
 `;
 
@@ -83,6 +85,7 @@ const Modal = ({
   onSecondaryClick,
   thirdText,
   onThirdClick,
+  thirdImportant = false,
   onClose,
 }) => (
   <Wrapper>
@@ -109,8 +112,13 @@ const Modal = ({
               {secondaryText}
             </SecondaryButton>
           )}
+
           {thirdText && (
-            <SecondaryButton tabIndex={7} onClick={onThirdClick}>
+            <SecondaryButton
+              as={thirdImportant ? ImportantButton : undefined}
+              tabIndex={7}
+              onClick={onThirdClick}
+            >
               {thirdText}
             </SecondaryButton>
           )}
