@@ -135,7 +135,7 @@ const Inventory = () => {
     <>
       <SearchWrapper>
         <Search
-          placeholder={t("search_items")}
+          placeholder={t("search_items", { total: list.length })}
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />

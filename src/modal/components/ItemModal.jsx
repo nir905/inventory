@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Modal from "../../shared/components/Modal";
-import { ReactComponent as BaseDeleteIcon } from "../../assets/delete.svg";
 import { useTranslation } from "react-i18next";
 
 const Input = styled.input`
@@ -10,13 +9,9 @@ const Input = styled.input`
   padding: 14px;
   border-radius: 8px;
   width: 100%;
-  margin-bottom: 32px;
-`;
-
-const DeleteIcon = styled(BaseDeleteIcon)`
-  width: 32px;
-  height: 32px;
-  color: #f11a1a;
+  &:not(:last-child) {
+    margin-bottom: 32px;
+  }
 `;
 
 const ItemModal = ({ item = {}, onClose, onSave, onDelete }) => {
@@ -40,6 +35,9 @@ const ItemModal = ({ item = {}, onClose, onSave, onDelete }) => {
       }}
       secondaryText={t("cancel")}
       onSecondaryClick={onClose}
+      thirdText={item.id && t("delete")}
+      thirdImportant
+      onThirdClick={() => setShowDeleteModal(true)}
     >
       <Input
         placeholder={t("name")}
@@ -97,7 +95,6 @@ const ItemModal = ({ item = {}, onClose, onSave, onDelete }) => {
         }
       />
 
-      {item.id && <DeleteIcon onClick={() => setShowDeleteModal(true)} />}
       {showDeleteModal && (
         <Modal
           title={t("delete_item")}

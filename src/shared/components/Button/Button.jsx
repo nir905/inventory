@@ -22,4 +22,10 @@ export const SecondaryButton = styled(Button)`
   }
 `;
 
+export const ImportantButton = styled(Button)`
+  background: #fff;
+  border: 1px solid #f11a1a;
+  color: #f11a1a;
+`;
+
 export default Button;
