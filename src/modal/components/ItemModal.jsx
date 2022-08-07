@@ -21,16 +21,16 @@ const ItemModal = ({ item = {}, onClose, onSave, onDelete }) => {
 
   const categoriesOptions = t("categories", { returnObjects: true });
 
-  const onSaveItem = () => {
+  const onSaveItem = (cb) => {
     if (!state.name || state.amount === undefined) {
       return;
     }
     onSave(state);
+    cb();
   };
 
   const onAddAnotherItemClick = () => {
-    onSaveItem();
-    setState({ type: "unit" });
+    onSaveItem(() => setState({ type: "unit" }));
   };
 
   return (
@@ -38,10 +38,7 @@ const ItemModal = ({ item = {}, onClose, onSave, onDelete }) => {
       onClose={onClose}
       title={item.id ? t("update_item") : t("add_item")}
       primaryText={t("save")}
-      onPrimaryClick={() => {
-        onSaveItem();
-        onClose();
-      }}
+      onPrimaryClick={() => onSaveItem(onClose)}
       secondaryText={t("cancel")}
       onSecondaryClick={onClose}
       thirdText={item.id ? t("delete") : t("add_another_item")}
