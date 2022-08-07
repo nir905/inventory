@@ -47,7 +47,7 @@ export const setValue = (uid, key, newValue) => {
   if (!uid) {
     return;
   }
-  console.log("update db with", newValue);
+  console.log(`%c update db (${key}) with`, "color: #5c57f7", newValue);
   const db = getDatabase();
   set(ref(db, `${uid}/${key}`), newValue);
 };

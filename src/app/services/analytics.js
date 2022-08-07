@@ -4,7 +4,8 @@ import { analytics } from "./firebase";
 const isLocalhost = window.location.hostname === "localhost";
 
 const logEvent = isLocalhost
-  ? (_, eventName) => console.log("analytics event:", eventName)
+  ? (_, eventName) =>
+      console.log("%c analytics event:", "color: #bada55", eventName)
   : fbLogEvent;
 
 export const clickAddNewItem = () => logEvent(analytics, "add_new_item");
