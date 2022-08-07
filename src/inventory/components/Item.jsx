@@ -84,7 +84,7 @@ const Item = ({
 
       onChangeAmount(id, newAmount);
     },
-    [type, amount, id]
+    [type, amount, onChangeAmount, id]
   );
 
   return (

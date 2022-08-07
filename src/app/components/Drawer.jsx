@@ -51,7 +51,6 @@ const Select = styled.select`
   font-weight: 600;
   background: #fff;
   cursor: pointer;
-
 `;
 
 const Item = styled.div`
@@ -88,7 +87,7 @@ const Drawer = ({ onClose }) => {
 
   useEffect(() => {
     i18n.changeLanguage(lang);
-  }, [lang]);
+  }, [i18n, lang]);
 
   return (
     <Wrapper onClick={onClose}>
