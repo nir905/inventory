@@ -15,7 +15,7 @@ const SearchWrapper = styled.div`
   position: sticky;
   top: -17px;
   background: #fff;
-  margin: -17px -16px 0;
+  margin: -17px -16px 10px;
   padding: 17px 17px 0;
   border-radius: 25px 0 0 0;
 `;
