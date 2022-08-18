@@ -25,15 +25,6 @@ const Comment = styled.span`
   color: #9a9999;
 `;
 
-const Category = styled.span`
-  background: #e4e4e4;
-  color: #9a9999;
-  align-self: flex-start;
-  padding: 4px;
-  border-radius: 4px;
-  font-size: 11px;
-`;
-
 const AmountButton = styled.button`
   border: 1px solid #bcbcbc;
   background: #fff;
@@ -54,16 +45,7 @@ const Amount = styled.div`
   }
 `;
 
-const Item = ({
-  id,
-  name,
-  amount,
-  type,
-  category,
-  comment,
-  onChangeAmount,
-  onEdit,
-}) => {
+const Item = ({ id, name, amount, type, comment, onChangeAmount, onEdit }) => {
   const { t } = useTranslation();
   const longPressEvent = useLongPress(onEdit, { cancelOnMovement: true });
 
@@ -92,7 +74,6 @@ const Item = ({
       <Name>
         <span>{name}</span>
         {comment && <Comment>{comment}</Comment>}
-        {category && <Category>{t(`categories.${category}`)}</Category>}
       </Name>
 
       <AmountButton onClick={() => handleChangeAmount(false)}>-</AmountButton>

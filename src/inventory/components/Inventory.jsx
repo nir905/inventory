@@ -2,7 +2,6 @@ import React, { useCallback, useContext, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 import AddItemModal from "../../modal/components/ItemModal";
-import { ReactComponent as BaseShareIcon } from "../../assets/share.svg";
 import Item from "./Item";
 import ShareModal from "../../modal/components/ShareModal";
 import AppContext from "../../app/components/AppContext";
@@ -11,40 +10,13 @@ import {
   clickChangeAmount,
   clickEditItem,
 } from "../../app/services/analytics";
+import { groupBy } from "../utils/lodash";
+import Filters from "./Filters";
 
-const SearchWrapper = styled.div`
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 4px 10px;
-  align-items: center;
-  position: sticky;
-  top: -17px;
-  background: #fff;
-  margin: -17px -16px 17px;
-  padding: 17px 17px 0;
-  border-radius: 25px 0 0 0;
-`;
-
-const Search = styled.input`
-  border: 1px solid #bcbcbc;
-  padding: 14px;
-  border-radius: 8px;
-  width: 100%;
-  grid-column: 1/-1;
-`;
-
-const Select = styled(Search).attrs(() => ({ as: "select" }))`
-  grid-column: 1;
-  background: #fff;
-  cursor: pointer;
-`;
-
-const ShareIcon = styled(BaseShareIcon)`
-  width: 24px;
-  height: 24px;
-  grid-row: 2;
-  grid-column: 2;
-  cursor: pointer;
+const Section = styled.div`
+  font-size: 21px;
+  margin-top: 10px;
+  color: #676666;
 `;
 
 const List = styled.div`
@@ -96,6 +68,22 @@ const Inventory = () => {
     [list, search, selectedFilter]
   );
 
+  const groupedList = useMemo(
+    () =>
+      Object.entries(groupBy(filteredList, "category")).sort(
+        ([keyA], [keyB]) => {
+          if (keyA === "undefined" && keyB !== "undefined") {
+            return 1;
+          }
+          if (keyA !== "undefined" && keyB === "undefined") {
+            return -1;
+          }
+          return keyA.localeCompare(keyB);
+        }
+      ),
+    [filteredList]
+  );
+
   const handleChangeAmount = useCallback(
     (id, newAmount) => {
       setList((prevList) =>
@@ -129,44 +117,42 @@ const Inventory = () => {
     );
   }, [setList, selectedItemModal]);
 
-  const categoriesOptions = t("categories", { returnObjects: true });
-
   return (
     <>
-      <SearchWrapper>
-        <Search
-          placeholder={t("search_items", { total: list.length })}
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-
-        <ShareIcon onClick={() => setShareModal(true)} />
-
-        <Select
-          value={selectedFilter || ""}
-          onChange={(e) => setSelectedFilter(e.target.value)}
-        >
-          <option value="">{t("all_categories")}</option>
-          {Object.entries(categoriesOptions).map(([key, value]) => (
-            <option value={key} key={key}>
-              {value}
-            </option>
-          ))}
-        </Select>
-      </SearchWrapper>
+      <Filters
+        {...{
+          search,
+          setSearch,
+          selectedFilter,
+          setSelectedFilter,
+          setShareModal,
+        }}
+      />
 
       {list.length > 0 ? (
         <List>
-          {filteredList.map((item) => (
-            <Item
-              {...item}
-              key={item.id}
-              onChangeAmount={handleChangeAmount}
-              onEdit={() => {
-                setSelectedItemModal(item);
-                clickEditItem();
-              }}
-            />
+          {groupedList.map(([category, list]) => (
+            <React.Fragment key={category}>
+              {!selectedFilter && (
+                <Section>
+                  {category !== "undefined"
+                    ? t(`categories.${category}`)
+                    : t("uncategorized")}
+                </Section>
+              )}
+
+              {list.map((item) => (
+                <Item
+                  {...item}
+                  key={item.id}
+                  onChangeAmount={handleChangeAmount}
+                  onEdit={() => {
+                    setSelectedItemModal(item);
+                    clickEditItem();
+                  }}
+                />
+              ))}
+            </React.Fragment>
           ))}
         </List>
       ) : (

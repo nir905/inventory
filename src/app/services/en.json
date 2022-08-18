@@ -33,6 +33,7 @@
   "logout": "Logout",
   "list": "List",
   "dashboard": "Dashboard",
+  "uncategorized": "Uncategorized",
   "categories": {
     "kids": "Kids",
     "vegetables": "Vegetables & Fruits",
