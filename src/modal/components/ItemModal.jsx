@@ -35,6 +35,7 @@ const ItemModal = ({ item = {}, onClose, onSave, onDelete }) => {
 
   return (
     <Modal
+      fullScreen
       onClose={onClose}
       title={item.id ? t("update_item") : t("add_item")}
       primaryText={t("save")}

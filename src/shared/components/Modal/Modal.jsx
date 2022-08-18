@@ -31,6 +31,11 @@ const Container = styled.div`
   border-radius: 3px;
   position: absolute;
   bottom: 0;
+
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  ${({ $fullScreen }) => $fullScreen && "height: 100%"};
 `;
 
 const Header = styled.div`
@@ -59,6 +64,7 @@ const CloseIconWrapper = styled.div`
 
 const Content = styled.div`
   padding: 16px;
+  overflow: auto;
 `;
 
 const Actions = styled.div`
@@ -88,9 +94,10 @@ const Modal = ({
   onThirdClick,
   thirdImportant = false,
   onClose,
+  fullScreen = false,
 }) => (
   <Wrapper onClick={onClose}>
-    <Container onClick={(e) => e.stopPropagation()}>
+    <Container onClick={(e) => e.stopPropagation()} $fullScreen={fullScreen}>
       <Header>
         <Title>{title}</Title>
 
