@@ -12,6 +12,7 @@ import {
 } from "../../app/services/analytics";
 import { groupBy } from "../utils/lodash";
 import Filters from "./Filters";
+import { ReactComponent as PlusIcon } from "../../assets/plus.svg";
 
 const Section = styled.div`
   font-size: 21px;
@@ -169,7 +170,7 @@ const Inventory = () => {
           clickAddNewItem();
         }}
       >
-        +
+        <PlusIcon />
       </AddButton>
 
       {selectedItemModal && (

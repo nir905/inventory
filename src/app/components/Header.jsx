@@ -15,10 +15,8 @@ const Wrapper = styled.h1`
 `;
 
 const MenuIcon = styled(BaseMenuIcon)`
-  width: 24px;
-  height: 24px;
   color: #fff;
-    cursor: pointer;
+  cursor: pointer;
 `;
 
 const Header = () => {

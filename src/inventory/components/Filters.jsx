@@ -32,8 +32,6 @@ const Select = styled(Search).attrs(() => ({ as: "select" }))`
 `;
 
 const ShareIcon = styled(BaseShareIcon)`
-  width: 24px;
-  height: 24px;
   grid-row: 2;
   grid-column: 2;
   cursor: pointer;
