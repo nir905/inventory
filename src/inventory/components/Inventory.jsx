@@ -134,13 +134,11 @@ const Inventory = () => {
         <List>
           {groupedList.map(([category, list]) => (
             <React.Fragment key={category}>
-              {!selectedFilter && (
-                <Section>
-                  {category !== "undefined"
-                    ? t(`categories.${category}`)
-                    : t("uncategorized")}
-                </Section>
-              )}
+              <Section>
+                {category !== "undefined"
+                  ? t(`categories.${category}`)
+                  : t("uncategorized")}
+              </Section>
 
               {list.map((item) => (
                 <Item

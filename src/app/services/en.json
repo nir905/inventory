@@ -34,6 +34,9 @@
   "list": "List",
   "dashboard": "Dashboard",
   "uncategorized": "Uncategorized",
+  "filter": "Filter",
+  "apply": "Apply",
+  "reset": "Reset",
   "categories": {
     "kids": "Kids",
     "vegetables": "Vegetables & Fruits",
