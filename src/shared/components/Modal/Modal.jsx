@@ -18,19 +18,19 @@ const Wrapper = styled.div`
 `;
 
 const jumpIn = keyframes`
-    0%{transform: scale(0.5);}
-    80%{transform: scale(1.05);}
-    100%{transform: scale(1);}
+    0%{transform: translateY(100%);}
+    100%{transform: translateY(0);}
 `;
 
 const Container = styled.div`
-  width: 90%;
+  width: 100%;
   max-width: 500px;
-  max-height: 90%;
   overflow: auto;
   background: #fff;
   animation: ${jumpIn} ease 300ms;
   border-radius: 3px;
+  position: absolute;
+  bottom: 0;
 `;
 
 const Header = styled.div`
@@ -89,8 +89,8 @@ const Modal = ({
   thirdImportant = false,
   onClose,
 }) => (
-  <Wrapper>
-    <Container>
+  <Wrapper onClick={onClose}>
+    <Container onClick={(e) => e.stopPropagation()}>
       <Header>
         <Title>{title}</Title>
 
